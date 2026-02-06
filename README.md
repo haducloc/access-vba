@@ -18,8 +18,6 @@
 
 🚀 **Still like Access? This framework is for you.**
 
----
-
 ## Modules / Classes
 
 - **`X_____.vba`**  
