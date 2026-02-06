@@ -1,0 +1,49 @@
+ACCESS ADO DATA TYPES (ADO / OLE DB)
+
+***** NUMBER (INTEGER)
+adTinyInt        - 1-byte integer (0–255) [BYTE]
+adSmallInt       - 2-byte integer (INT2)
+adInteger        - 4-byte integer (INT4)
+adBigInt         - 8-byte integer (INT8)
+
+***** NUMBER (FLOATING / DECIMAL)
+adSingle         - Single-precision floating point
+adDouble         - Double-precision floating point
+adDecimal        - Fixed-precision decimal
+adNumeric        - Fixed-precision numeric
+
+***** TEXT
+adChar           - Fixed-length ANSI text
+adVarChar        - Variable-length ANSI text
+adWChar          - Fixed-length Unicode text
+adVarWChar       - Variable-length Unicode text (TEXT / MEMO)
+adLongVarWChar   - Long Unicode text (MEMO)
+
+***** DATE / TIME
+adDate           - Date and time value
+
+***** YES / NO
+adBoolean        - Boolean value (0 = False, -1 = True)
+
+***** CURRENCY
+adCurrency       - Fixed-point currency (4 decimal places)
+
+***** AUTONUMBER (SPECIAL)
+adInteger + AutoIncrement property
+                - AutoNumber field (LONG)
+adBigInt + AutoIncrement
+                - AutoNumber (LONGLONG, ACE only)
+
+***** BINARY
+adBinary         - Fixed-length binary
+adVarBinary      - Variable-length binary
+adLongVarBinary  - OLE Object / Attachment
+
+***** GUID
+adGUID           - Replication ID (UUID)
+
+***** NOTES
+
+- ADO uses ad* constants instead of Access UI names.
+- TEXT vs MEMO is determined by length (adVarWChar vs adLongVarWChar).
+- adInteger maps to Access LONG, not INTEGER.
