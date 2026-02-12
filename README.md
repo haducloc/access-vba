@@ -154,6 +154,8 @@ Example:
 
 ```vb
 Dim stName As XInputState
+
+' GetXXX(ctrl, fieldName, required)
 Set stName = GetString(Me.txtName, "Name", True)
 
 If Not stName.IsValid Then
@@ -197,21 +199,18 @@ Set values = states.ToValuesDict
 Core helpers:
 
 - `CreateCommandAdo(cn, sql)`
-- `ExecuteQueryAdo(cmd, disconnect)`
+- `ExecuteQueryAdo(cmd, disconnected=True)`
 - `ExecuteUpdateAdo(cmd)`
 
 Typed parameter helpers:
 
-- `ParamInt4Ado`
-- `ParamBoolAdo`
-- `ParamDateAdo`
-- `ParamVarcharAdo`
-- etc.
-
-LIKE helpers:
-
+- `ParamByteAdo`, `ParamUByteAdo`
+- `ParamInt2Ado`, `ParamInt4Ado`, `ParamInt8Ado`
+- `ParamBoolAdo`, 
+- `ParamDateAdo`, `ParamTimeAdo`, `ParamDateTimeAdo`
+- `ParamVarcharAdo`, `ParamCharAdo`
 - `ParamLikeAdo`
-- `ParamNLikeAdo`
+- etc.
 
 This keeps SQL parameterized and DB-provider-aware.
 
