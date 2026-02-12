@@ -1,0 +1,44 @@
+ACCESS DAO DATA TYPES (DAO / VBA)
+
+***** NUMBER (INTEGER)
+dbByte        - 1-byte unsigned integer (BYTE)
+dbInteger     - 2-byte integer (INT2)
+dbLong        - 4-byte integer (INT4)
+dbLongLong    - 8-byte integer (INT8)
+
+***** NUMBER (FLOATING / DECIMAL)
+dbSingle      - Single-precision floating point
+dbDouble      - Double-precision floating point
+dbDecimal     - Fixed-precision decimal
+
+***** TEXT
+dbText        - Short text (1–255 characters)
+dbMemo        - Long text (MEMO)
+
+***** DATE / TIME
+dbDate        - Date and time value
+
+***** YES / NO
+dbBoolean     - Boolean value (0 = False, -1 = True)
+
+***** CURRENCY
+dbCurrency    - Fixed-point currency (4 decimal places)
+
+***** AUTONUMBER (SPECIAL)
+dbLong + AutoIncrement
+              - AutoNumber (LONG)
+dbLongLong + AutoIncrement
+              - AutoNumber (LONGLONG, ACE only)
+
+***** BINARY
+dbBinary      - Fixed-length binary
+dbLongBinary  - OLE Object / Attachment
+
+***** GUID
+dbGUID        - Replication ID (UUID)
+
+***** NOTES
+
+- DAO types map closely to Access table field types.
+- dbLong corresponds to Access LONG, not INTEGER.
+- dbText over 255 chars becomes dbMemo automatically.
