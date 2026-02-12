@@ -199,14 +199,14 @@ Set values = states.ToValuesDict
 Core helpers:
 
 - `CreateCommandAdo(cn, sql)`
-- `ExecuteQueryAdo(cmd, disconnected=True)`
+- `ExecuteQueryAdo(cmd, disconnect=True)`
 - `ExecuteUpdateAdo(cmd)`
 
 Typed parameter helpers:
 
 - `ParamByteAdo`, `ParamUByteAdo`
 - `ParamInt2Ado`, `ParamInt4Ado`, `ParamInt8Ado`
-- `ParamBoolAdo`, 
+- `ParamBoolAdo`
 - `ParamDateAdo`, `ParamTimeAdo`, `ParamDateTimeAdo`
 - `ParamVarcharAdo`, `ParamCharAdo`
 - `ParamLikeAdo`
@@ -317,7 +317,7 @@ Me.Ticket_Datasheet.Form.Recordset
 
 On save:
 
-- Build states (`GetString`, `GetBool`, `GetInt4`, `GetDate`)
+- Build states (`GetString`, `GetBool`, `GetInt4`, `GetDate`, etc.)
 - Validate
 - Insert or update via `XAdoCrud`
 
