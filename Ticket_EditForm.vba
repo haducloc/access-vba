@@ -23,16 +23,18 @@ Private Sub Form_Load()
     ' Try to Parse TicketID from OpenArgs
     ParseInt4 Me.OpenArgs, ticketID
 
+    ' Init txtTicketID
+    Me.txtTicketID = ticketID
+    
     If IsNull(ticketID) Then
-        ' Add New Case
+        ' Add New
         Me.btnDelete.Enabled = False
         
         Me.txtTicketID.Enabled = False
         Me.txtDateCreated.Enabled = False
     Else
-        ' Update Case
+        ' Update
         
-        ' Make readonly
         Me.txtTicketID.Locked = True
         Me.txtDateCreated.Locked = True
     End If
@@ -68,7 +70,7 @@ Private Sub LoadTicket()
     Dim pk As Object: Set pk = NewDict
     pk("TicketID") = ticketID
 
-    ' Load Ticket
+    ' Load the record
     Set dict = GetRowByPkAdo(GetConn(), "Ticket", "TicketID", "INT4", pk)
 
     If dict Is Nothing Then
@@ -76,7 +78,7 @@ Private Sub LoadTicket()
         DoCmd.Close acForm, Me.name, acSaveNo
     Else
         ' Bind record fields to controls
-        Me.txtTicketID = dict("TicketID")
+        ' Me.txtTicketID = dict("TicketID")
         Me.txtName = dict("Name")
         Me.txtDescription = dict("Description")
 
@@ -97,6 +99,7 @@ End Sub
 ' Handle btnSave Clicked
 Private Sub btnSave_Click()
     ' Form Inputs
+    ' TicketID is auto generated, so it is optional
     Dim stTicketID As XInputState: Set stTicketID = GetInt4(Me.txtTicketID, "TicketID", False)
     Dim stName As XInputState: Set stName = GetString(Me.txtName, "Name", True)
     Dim stDescription As XInputState: Set stDescription = GetString(Me.txtDescription, "Description", False)
@@ -133,7 +136,7 @@ Private Sub btnSave_Click()
         "VARCHAR(100), VARCHAR(4000), BOOL, INt4, DATE", _
         values
     Else
-        ' Update Case
+        ' Update
 
         UpdateRowAdo GetConn(), "Ticket", _
         "Name, Description, IsDone, TicketTypeID", _
@@ -165,7 +168,7 @@ Private Sub btnDelete_Click()
     Dim pk As Object: Set pk = NewDict
     pk("TicketID") = ticketID
 
-    ' Delete the ticket
+    ' Delete the record
     DeleteRowAdo GetConn(), "Ticket", "TicketID", "INT4", pk
 
     MsgBox "Record deleted.", vbInformation
@@ -180,6 +183,6 @@ End Sub
 Private Sub Form_Close()
     CloseObj connAdo
 
-    ' Call Ticket_MainForm.RefreshTickets
+    ' Call Ticket_MainForm.RefreshTickets to reload tickets
     TryCallForm "Ticket_MainForm", "RefreshTickets"
 End Sub
