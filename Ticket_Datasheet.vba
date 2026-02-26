@@ -3,9 +3,10 @@ Option Explicit
 
 Private delegate As XDatasheetDelegate
 
-' NOTES: You ONLY implement RefreshFromParent and OpenEditForm
+' NOTES: You ONLY implement ReloadOnParentOnSort and OpenEditForm
 
-Public Sub RefreshFromParent(ByVal sortByAdo As String)
+Public Sub ReloadOnParentOnSort(ByVal sortByAdo As String)
+    ' Parent of Ticket_Datasheet is Ticket_MainForm
     If HasLoadedParent(Me, "Ticket_MainForm") Then
         Me.Parent.RefreshTickets sortByAdo
     End If

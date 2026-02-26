@@ -33,8 +33,8 @@ Public Sub OnTimer()
     If Not mPendingReload Then Exit Sub
     mPendingReload = False
 
-    ' host implements RefreshFromParent(sortByAdo)
-    CallByName mHost, "RefreshFromParent", VbMethod, mSortByAdo
+    ' host implements ReloadOnParentOnSort(sortByAdo)
+    CallByName mHost, "ReloadOnParentOnSort", VbMethod, mSortByAdo
 End Sub
 
 Public Sub OnDblClick()
