@@ -1,0 +1,56 @@
+Option Compare Database
+Option Explicit
+
+Private delegate As XDatasheetDelegate
+
+' NOTES: You ONLY implement ReloadOnParentOnSort and OpenEditForm
+
+Public Sub ReloadOnParentOnSort(ByVal sortByAdo As String)
+    ' Parent of TicketComment_Datasheet is Ticket_EditForm
+    If HasLoadedParent(Me, "Ticket_EditForm") Then
+        Me.Parent.LoadComments sortByAdo
+    End If
+End Sub
+
+Public Sub OpenEditForm(ByVal selectedRow As Object)
+    Dim ticketCommentID As Long
+    ticketCommentID = selectedRow("ticketCommentID")
+    
+    Dim ticketID As Long
+    ticketID = selectedRow("ticketID")
+
+    ' Args: ticketCommentID|ticketID
+    Dim args As String
+    args = EncodeArgs(ticketCommentID, ticketID)
+    
+    TryOpenForm "TicketComment_EditForm", args
+End Sub
+
+' DON'T touch the Private functions below
+
+Private Sub Form_Load()
+    Set delegate = New XDatasheetDelegate
+    delegate.Attach Me
+    delegate.OnLoad
+End Sub
+
+Private Sub Form_Unload(Cancel As Integer)
+    Set delegate = Nothing
+End Sub
+
+Private Sub Form_ApplyFilter(Cancel As Integer, ApplyType As Integer)
+    delegate.OnApplyFilter Cancel, ApplyType
+End Sub
+
+Private Sub Form_Timer()
+    If delegate Is Nothing Then Exit Sub
+    delegate.OnTimer
+End Sub
+
+Private Sub Form_DblClick(Cancel As Integer)
+    delegate.OnDblClick
+End Sub
+
+Private Sub Form_Error(DataErr As Integer, Response As Integer)
+    delegate.OnError DataErr, Response
+End Sub
