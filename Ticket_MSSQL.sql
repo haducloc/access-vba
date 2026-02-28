@@ -14,6 +14,13 @@ CREATE TABLE dbo.Ticket (
     CONSTRAINT PK_Ticket PRIMARY KEY (TicketID)
 );
 
+CREATE TABLE [dbo].[TicketComment](
+	[TicketCommentID] [int] IDENTITY(1,1) NOT NULL,
+	[Comment] [varchar](255) NOT NULL,
+	[TicketID] [int] NOT NULL,
+	CONSTRAINT PK_TicketComment PRIMARY KEY (TicketCommentID)
+);
+
 INSERT INTO dbo.TicketType (TicketTypeID, Name)
 VALUES
     (1, 'Ticket Type 1'),
@@ -38,3 +45,54 @@ VALUES
     ('Test Ticket 8',  'Sample ticket 8',  1, 2, '2026-02-04'),
     ('Test Ticket 9',  'Sample ticket 9',  0, 3, '2026-02-05'),
     ('Test Ticket 10', 'Sample ticket 10', 0, 1, '2026-02-05');
+
+INSERT INTO dbo.TicketComment (Comment, TicketID) VALUES
+-- Ticket 1
+('Initial issue reported by user.', 1),
+('Support team investigating the problem.', 1),
+('Issue resolved and confirmed by user.', 1),
+
+-- Ticket 2
+('Login failure reported.', 2),
+('Password reset instructions sent.', 2),
+('User successfully logged in after reset.', 2),
+
+-- Ticket 3
+('Application crashes on startup.', 3),
+('Logs requested from user.', 3),
+('Patch deployed to fix startup crash.', 3),
+
+-- Ticket 4
+('Unable to generate report.', 4),
+('Database connection timeout identified.', 4),
+('Connection settings updated and verified.', 4),
+
+-- Ticket 5
+('Email notifications not working.', 5),
+('SMTP configuration reviewed.', 5),
+('Email notifications restored.', 5),
+
+-- Ticket 6
+('Performance degradation noticed.', 6),
+('High CPU usage detected on server.', 6),
+('Server restarted and performance normalized.', 6),
+
+-- Ticket 7
+('Error message displayed during checkout.', 7),
+('Payment gateway timeout confirmed.', 7),
+('Retry logic implemented and tested.', 7),
+
+-- Ticket 8
+('Data export not downloading.', 8),
+('File permission issue discovered.', 8),
+('Permissions corrected and export successful.', 8),
+
+-- Ticket 9
+('UI layout broken on mobile.', 9),
+('CSS conflict identified.', 9),
+('Styles updated and verified on mobile devices.', 9),
+
+-- Ticket 10
+('User account locked unexpectedly.', 10),
+('Security logs reviewed.', 10),
+('Account unlocked and user notified.', 10);
