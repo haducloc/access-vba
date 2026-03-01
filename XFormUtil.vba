@@ -73,6 +73,32 @@ Public Function GetControl(ByVal frm As Form, ByVal ControlName As String) As Co
     On Error GoTo 0
 End Function
 
+' Makes a control read-only (Locked=True) but still tabbable, with a light gray background.
+Public Sub SetReadOnly(ByVal ctl As Control, Optional ByVal isReadOnly As Boolean = True)
+    On Error GoTo TCError
+
+    ctl.Enabled = True
+    ctl.TabStop = True
+    ctl.Locked = isReadOnly
+
+    If isReadOnly Then
+        SetControlBackColorSafe ctl, RGB(245, 245, 245) ' lighter than Disabled=True
+    Else
+        SetControlBackColorSafe ctl, vbWhite
+    End If
+
+    Exit Sub
+
+TCError:
+    ' Fail gracefully if control type doesn't support a property
+End Sub
+
+Private Sub SetControlBackColorSafe(ByVal ctl As Control, ByVal colorValue As Long)
+    On Error Resume Next
+    ctl.BackColor = colorValue
+    On Error GoTo 0
+End Sub
+
 ' Initializes a datasheet form and enforces Datasheet DefaultView
 Public Sub ConfigCustomDatasheet(ByVal frm As Form)
     AssertTrue frm.DefaultView = acDefViewDatasheet, _
