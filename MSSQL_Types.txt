@@ -1,0 +1,125 @@
+MSSQL DATA TYPES (T-SQL)
+***** INTEGER / NUMBER
+
+BIT - Boolean value (0 / 1)
+
+TINYINT - Unsigned 8-bit integer (0 to 255)
+
+SMALLINT - 16-bit integer
+
+INT - 32-bit integer (most common numeric type)
+
+BIGINT - 64-bit integer
+
+DECIMAL(p,s) - Fixed precision and scale numeric
+NUMERIC(p,s) - Same as DECIMAL
+
+SMALLMONEY - Monetary value (4 decimal places, smaller range)
+MONEY - Monetary value (4 decimal places)
+
+FLOAT[(n)] - Approximate floating point (n = precision bits; 53-bit default ≈ 8 bytes)
+
+REAL - Single-precision floating point (4-byte)
+
+***** TEXT / STRING
+
+CHAR(n) - Fixed-length string
+
+VARCHAR(n) - Variable-length string (1 to 8000 bytes)
+
+VARCHAR(MAX) - Large variable-length string (up to 2GB)
+
+NCHAR(n) - Fixed-length Unicode string
+
+NVARCHAR(n) - Variable-length Unicode string
+
+NVARCHAR(MAX) - Large Unicode text (recommended for long text)
+
+TEXT - Deprecated (use VARCHAR(MAX))
+
+NTEXT - Deprecated (use NVARCHAR(MAX))
+
+***** DATE / TIME
+
+DATE - Date only (YYYY-MM-DD)
+
+TIME(n) - Time only (n = fractional seconds precision 0–7)
+
+DATETIME - Date and time (legacy, ~3 ms precision)
+
+DATETIME2(n) - Date and time (higher precision, 0–7 fractional seconds, recommended)
+
+SMALLDATETIME - Date and time (minute precision)
+
+DATETIMEOFFSET(n) - Date/time with timezone offset
+
+Examples:
+
+TIME(0) - HH:MM:SS
+TIME(3) - HH:MM:SS.mmm
+DATETIME2(0) - Date/time, no fractional seconds
+DATETIME2(7) - Maximum precision (100 nanoseconds)
+
+***** UNIQUE IDENTIFIER
+
+UNIQUEIDENTIFIER - GUID / UUID
+
+***** BINARY
+
+BINARY(n) - Fixed-length binary
+
+VARBINARY(n) - Variable-length binary (1 to 8000 bytes)
+
+VARBINARY(MAX) - Large binary data (files, images)
+
+IMAGE - Deprecated (use VARBINARY(MAX))
+
+***** XML / JSON
+
+XML - Native XML data type (queryable with XQuery)
+
+JSON - Stored as NVARCHAR; JSON functions available (no dedicated JSON type)
+
+***** SPECIAL / AUTO
+
+IDENTITY(seed, increment) - Auto-increment property (used with INT/BIGINT)
+
+ROWVERSION - Auto-generated binary version number (for concurrency control)
+
+SQL_VARIANT - Stores multiple SQL data types (avoid unless necessary)
+
+***** STORAGE NOTES
+
+BIT - 1 bit (packed internally)
+
+TINYINT - 1 byte
+SMALLINT - 2 bytes
+INT - 4 bytes
+BIGINT - 8 bytes
+
+DATE - 3 bytes
+TIME(n) - 3–5 bytes (depends on precision)
+DATETIME - 8 bytes
+DATETIME2(n) - 6–8 bytes (depends on precision)
+
+UNIQUEIDENTIFIER - 16 bytes
+
+***** BEST PRACTICES
+
+Prefer INT unless range requires BIGINT.
+
+Prefer DATETIME2(n) over DATETIME.
+
+Use TIME(n) when only time is needed.
+
+Prefer NVARCHAR over VARCHAR if Unicode is required.
+
+Avoid deprecated types: TEXT, NTEXT, IMAGE.
+
+Use DECIMAL instead of FLOAT for financial calculations.
+
+Prefer DECIMAL(19,4) over MONEY for accounting precision.
+
+IDENTITY is a property, not a data type.
+
+ROWVERSION is not a date/time.
