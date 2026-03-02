@@ -36,9 +36,9 @@ Private Sub Form_Load()
     Me.txtTicketCommentID = ticketCommentID
     Me.txtTicketID = ticketID
         
-    ' TicketCommentID & TicketID are readonly
-    Me.txtTicketCommentID.Enabled = False
-    Me.txtTicketID.Enabled = False
+    ' Always Readonly
+    SetReadOnly Me.txtTicketCommentID
+    SetReadOnly Me.txtTicketID
 
     If IsNull(ticketCommentID) Then
         ' Add New

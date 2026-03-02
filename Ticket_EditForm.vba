@@ -29,16 +29,14 @@ Private Sub Form_Load()
     If IsNull(ticketID) Then
         ' Add New
         Me.btnDelete.Enabled = False
-        
-        Me.txtTicketID.Enabled = False
-        Me.txtDateCreated.Enabled = False
     Else
         ' Update
-        
-        Me.txtTicketID.Locked = True
-        Me.txtDateCreated.Locked = True
     End If
-    
+
+    ' Always Readonly
+    SetReadOnly Me.txtTicketID    
+    SetReadOnly Me.txtDateCreated
+
     ' Load ticket
     LoadTicket
 End Sub
