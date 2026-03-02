@@ -136,6 +136,52 @@ TCError:
     err.Raise xe.ErrNum, xe.ErrSrc, xe.ErrDesc
 End Function
 
+' Executes a parameterized query (1 param) and returns the first row as a Dictionary.
+Public Function ExecuteDictAdo(ByVal connAdo As Object, ByVal parameterizedSql As String, ByVal pkInteger As Variant) As Object
+    Dim rs As Object
+    Dim cmd As Object
+    Dim dict As Object
+    Dim xe As XError
+
+    AssertHasValue pkInteger, "XAdoUtil.ExecuteDictAdo", "pkInteger is required."
+
+    On Error GoTo TCError
+    Set cmd = CreateCommandAdo(connAdo, parameterizedSql)
+
+    ' Long (also accept Integer)
+    If VarType(pkInteger) = vbInteger Or VarType(pkInteger) = vbLong Then
+        ParamInt4Ado cmd, "@p1", CLng(pkInteger)
+
+#If Win64 Then
+    ElseIf VarType(pkInteger) = vbLongLong Then
+        ParamInt8Ado cmd, "@p1", CLngLng(pkInteger)
+#End If
+
+    Else
+        XRaise "XAdoUtil.ExecuteDictAdo", "The given pkInteger is not Integer/Long/LongLong."
+    End If
+
+    Set rs = ExecuteQueryAdo(cmd, True)
+
+    If (rs Is Nothing) Then
+        Set dict = Nothing
+    ElseIf (rs.BOF And rs.EOF) Then
+        Set dict = Nothing
+    Else
+        Set dict = RecordToDictAdo(rs)
+    End If
+
+    CloseObj rs
+
+    Set ExecuteDictAdo = dict
+    Exit Function
+
+TCError:
+    Set xe = ToXError(Err)
+    CloseObj rs
+    Err.Raise xe.ErrNum, xe.ErrSrc, xe.ErrDesc
+End Function
+
 ' Add Unsigned TINYINT parameter.
 Public Sub ParamUByteAdo(ByVal cmd As Object, ByVal name As String, ByVal value As Variant)
     AddParam cmd, adUnsignedTinyInt, name, value
