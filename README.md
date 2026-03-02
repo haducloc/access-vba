@@ -110,7 +110,7 @@ In `Form_Load`:
 
 - `ConfigCustomForm Me`
 - Initialize dropdowns
-- Parse PK from `OpenArgs`
+- Parses `OpenArgs`, which helps determine whether the form is for updating an existing record or adding a new record.
 - Switch UI between add mode and edit mode
 - Load row if editing
 
@@ -242,6 +242,7 @@ Pattern:
 - `ConfigCustomDatasheet` enforces Datasheet settings
 - `TryOpenForm` prevents opening duplicate edit forms
 - `TryCallForm` calls public method on loaded form
+- `SetReadonly` to make UI form inputs readonly
 
 `XDatasheetDelegate` handles:
 
@@ -286,6 +287,10 @@ Bind result to:
 Me.Ticket_Datasheet.Form.Recordset
 ```
 
+`btnAddNew_Click`:
+
+- Opens `Ticket_EditForm` with no `OpenArgs`, indicating that this form is for adding a new Ticket record.
+- 
 ---
 
 ### 4.3 Search SQL module (`Ticket_Ado`)
@@ -305,7 +310,7 @@ Me.Ticket_Datasheet.Form.Recordset
 `OpenEditForm`:
 
 - Reads selected `TicketID`
-- Opens `Ticket_EditForm` with `OpenArgs`
+- Opens `Ticket_EditForm` with `OpenArgs` to pass the TicketID, indicating that this form is for updating an existing Ticket record.
 
 ---
 
@@ -381,7 +386,7 @@ Use this checklist.
 In edit form close event:
 
 ```vb
-TryCallForm "YourTable_MainForm", "Refresh..."
+TryCallForm "YourTable_MainForm", "Refresh or Reload or Research method ..."
 ```
 
 ---
