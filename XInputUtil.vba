@@ -4,6 +4,7 @@ Option Explicit
 'Build an XInputState and optionally set the control BorderColor based on validity.
 Private Function MakeState(ctrl As Control, fieldName As String, val As Variant, valType As XValueType, valid As Boolean, Optional errMsg As String = "") As XInputState
     Dim st As New XInputState
+    st.FormInput = ctrl
     st.FieldName = fieldName
     st.Value = val
     st.ValueType = valType
